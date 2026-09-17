@@ -10,7 +10,7 @@ import '../services/location_service.dart';
 import '../services/media_service.dart';
 
 class NovoRegistroScreen extends StatefulWidget {
-  const NovoRegistroScreen({super.key});
+  NovoRegistroScreen({super.key});
 
   @override
   State<NovoRegistroScreen> createState() => _NovoRegistroScreenState();
@@ -86,20 +86,20 @@ class _NovoRegistroScreenState extends State<NovoRegistroScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Novo Registro de Ponto')),
+      appBar: AppBar(title: Text('Novo Registro de Ponto')),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               _construirCardFoto(),
-              const SizedBox(height: 16),
+              SizedBox(height: 16),
               _construirCardGps(),
-              const SizedBox(height: 16),
+              SizedBox(height: 16),
               _construirCampoObservacao(),
-              const SizedBox(height: 20),
+              SizedBox(height: 20),
               _construirBotaoSalvar(),
             ],
           ),
@@ -124,7 +124,7 @@ class _NovoRegistroScreenState extends State<NovoRegistroScreen> {
                 borderRadius: BorderRadius.circular(12),
                 child: Image.file(File(_caminhoFoto!), fit: BoxFit.cover),
               )
-            : const Column(
+            : Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(Icons.camera_alt, size: 50, color: Colors.blueGrey),
@@ -145,16 +145,16 @@ class _NovoRegistroScreenState extends State<NovoRegistroScreen> {
           _posicaoAtual != null ? Icons.location_on : Icons.location_off,
           color: _posicaoAtual != null ? Colors.green : Colors.red,
         ),
-        title: const Text('Localização GPS'),
+        title: Text('Localização GPS'),
         subtitle: _carregandoGps
-            ? const Text('Buscando sinal de satélite...')
+            ? Text('Buscando sinal de satélite...')
             : Text(
                 _posicaoAtual != null
                     ? 'Lat: ${_posicaoAtual!.latitude.toStringAsFixed(5)}\nLong: ${_posicaoAtual!.longitude.toStringAsFixed(5)}'
                     : 'GPS não obtido.',
               ),
         trailing: IconButton(
-          icon: const Icon(Icons.refresh),
+          icon: Icon(Icons.refresh),
           onPressed: _carregandoGps ? null : _buscarGps,
         ),
       ),
@@ -166,7 +166,7 @@ class _NovoRegistroScreenState extends State<NovoRegistroScreen> {
     return TextFormField(
       controller: _observacaoController,
       maxLines: 3,
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
         labelText: 'Observação / Diário de Campo',
         border: OutlineInputBorder(),
         hintText: 'Ex: Visita técnica na unidade SENAI ou conferência de maquinário',
@@ -179,10 +179,10 @@ class _NovoRegistroScreenState extends State<NovoRegistroScreen> {
     return ElevatedButton.icon(
       onPressed: _salvando ? null : _salvarRegistro,
       icon: _salvando
-          ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2))
-          : const Icon(Icons.check),
+          ? SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2))
+          : Icon(Icons.check),
       label: Text(_salvando ? 'Salvando...' : 'Salvar Registro'),
-      style: ElevatedButton.styleFrom(padding: const EdgeInsets.symmetric(vertical: 14)),
+      style: ElevatedButton.styleFrom(padding: EdgeInsets.symmetric(vertical: 14)),
     );
   }
 }

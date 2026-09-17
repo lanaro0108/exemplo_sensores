@@ -8,7 +8,7 @@ import 'detalhe_screen.dart';
 import 'novo_registro_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -38,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _abrirNovoRegistro() async {
     final salvou = await Navigator.push<bool>(
       context,
-      MaterialPageRoute(builder: (_) => const NovoRegistroScreen()),
+      MaterialPageRoute(builder: (_) => NovoRegistroScreen()),
     );
     if (salvou == true) _carregarRegistros();
   }
@@ -49,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _carregarRegistros();
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Registro removido com sucesso.')),
+        SnackBar(content: Text('Registro removido com sucesso.')),
       );
     }
   }
@@ -58,10 +58,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('SENAI CheckIn'),
+        title: Text('SENAI CheckIn'),
         actions: [
           IconButton(
-            icon: const Icon(Icons.refresh),
+            icon: Icon(Icons.refresh),
             onPressed: _carregarRegistros,
             tooltip: 'Atualizar Lista',
           ),
@@ -70,8 +70,8 @@ class _HomeScreenState extends State<HomeScreen> {
       body: _construirCorpo(),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _abrirNovoRegistro,
-        icon: const Icon(Icons.add_a_photo),
-        label: const Text('Novo Ponto'),
+        icon: Icon(Icons.add_a_photo),
+        label: Text('Novo Ponto'),
       ),
     );
   }
@@ -79,10 +79,10 @@ class _HomeScreenState extends State<HomeScreen> {
   // Construir corpo da tela => alterna entre carregamento, vazio ou lista
   Widget _construirCorpo() {
     if (_carregando) {
-      return const Center(child: CircularProgressIndicator());
+      return Center(child: CircularProgressIndicator());
     }
     if (_registros.isEmpty) {
-      return const Center(
+      return Center(
         child: Text(
           'Nenhum registro encontrado.\nToque no botão abaixo para adicionar.',
           textAlign: TextAlign.center,
@@ -92,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
     }
     return ListView.builder(
       itemCount: _registros.length,
-      padding: const EdgeInsets.symmetric(vertical: 8),
+      padding: EdgeInsets.symmetric(vertical: 8),
       itemBuilder: (context, index) => _construirItemLista(_registros[index]),
     );
   }
@@ -107,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
         height: 55,
         child: arquivo.existsSync()
             ? Image.file(arquivo, fit: BoxFit.cover)
-            : Container(color: Colors.grey.shade300, child: const Icon(Icons.broken_image)),
+            : Container(color: Colors.grey.shade300, child: Icon(Icons.broken_image)),
       ),
     );
   }
@@ -115,10 +115,10 @@ class _HomeScreenState extends State<HomeScreen> {
   // Construir item da lista => apresenta informações resumidas do registro
   Widget _construirItemLista(PontoRegistro item) {
     return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      margin: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       child: ListTile(
         leading: _construirMiniatura(item.caminhoFoto),
-        title: Text(item.dataHora, style: const TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(item.dataHora, style: TextStyle(fontWeight: FontWeight.bold)),
         subtitle: Text(
           'Lat: ${item.latitude.toStringAsFixed(4)} | Long: ${item.longitude.toStringAsFixed(4)}\n'
           '${item.observacao.isEmpty ? "Sem observação" : item.observacao}',
@@ -131,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
           MaterialPageRoute(builder: (_) => DetalheScreen(registro: item)),
         ),
         trailing: IconButton(
-          icon: const Icon(Icons.delete, color: Colors.redAccent),
+          icon: Icon(Icons.delete, color: Colors.redAccent),
           onPressed: () => item.id != null ? _excluirRegistro(item.id!) : null,
         ),
       ),

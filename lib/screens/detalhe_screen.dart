@@ -8,7 +8,7 @@ import '../models/ponto_registro.dart';
 class DetalheScreen extends StatelessWidget {
   final PontoRegistro registro;
 
-  const DetalheScreen({super.key, required this.registro});
+  DetalheScreen({super.key, required this.registro});
 
   // Abrir mapa nativo => abre o Google Maps ou app padrão com as coordenadas
   Future<void> _abrirMapa(BuildContext context) async {
@@ -19,7 +19,7 @@ class DetalheScreen extends StatelessWidget {
       await launchUrl(uri, mode: LaunchMode.externalApplication);
     } else if (context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Não foi possível abrir o mapa.')),
+        SnackBar(content: Text('Não foi possível abrir o mapa.')),
       );
     }
   }
@@ -28,17 +28,17 @@ class DetalheScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Detalhes do Registro'),
+        title: Text('Detalhes do Registro'),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             _construirFoto(),
-            const SizedBox(height: 16),
+            SizedBox(height: 16),
             _construirCardInfo(),
-            const SizedBox(height: 16),
+            SizedBox(height: 16),
             _construirBotaoMapa(context),
           ],
         ),
@@ -56,7 +56,7 @@ class DetalheScreen extends StatelessWidget {
           : Container(
               height: 200,
               color: Colors.grey.shade300,
-              child: const Icon(Icons.broken_image, size: 60),
+              child: Icon(Icons.broken_image, size: 60),
             ),
     );
   }
@@ -67,19 +67,19 @@ class DetalheScreen extends StatelessWidget {
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('Data e Hora: ${registro.dataHora}',
-                style: const TextStyle(fontWeight: FontWeight.bold)),
-            const SizedBox(height: 8),
+                style: TextStyle(fontWeight: FontWeight.bold)),
+            SizedBox(height: 8),
             Text('Latitude: ${registro.latitude}'),
             Text('Longitude: ${registro.longitude}'),
-            const Divider(height: 24),
-            const Text('Observação / Diário:',
+            Divider(height: 24),
+            Text('Observação / Diário:',
                 style: TextStyle(fontWeight: FontWeight.bold)),
-            const SizedBox(height: 6),
+            SizedBox(height: 6),
             Text(registro.observacao.isEmpty ? 'Sem observações.' : registro.observacao),
           ],
         ),
@@ -91,10 +91,10 @@ class DetalheScreen extends StatelessWidget {
   Widget _construirBotaoMapa(BuildContext context) {
     return ElevatedButton.icon(
       onPressed: () => _abrirMapa(context),
-      icon: const Icon(Icons.map),
-      label: const Text('Visualizar no Mapa'),
+      icon: Icon(Icons.map),
+      label: Text('Visualizar no Mapa'),
       style: ElevatedButton.styleFrom(
-        padding: const EdgeInsets.symmetric(vertical: 14),
+        padding: EdgeInsets.symmetric(vertical: 14),
       ),
     );
   }

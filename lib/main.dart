@@ -6,11 +6,11 @@ import 'screens/home_screen.dart';
 void main() {
   // Garantir a inicialização dos bindings nativos => necessário para SQLite e sensores
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const SenaiCheckInApp());
+  runApp(SenaiCheckInApp());
 }
 
 class SenaiCheckInApp extends StatelessWidget {
-  const SenaiCheckInApp({super.key});
+  SenaiCheckInApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +20,11 @@ class SenaiCheckInApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF005CAA), // Azul característico do SENAI
+          seedColor: Color(0xFF005CAA), // Azul característico do SENAI
         ),
         useMaterial3: true,
       ),
-      home: const HomeScreen(),
+      home: HomeScreen(),
     );
   }
 }
